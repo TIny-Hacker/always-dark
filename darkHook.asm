@@ -37,14 +37,14 @@ _darkHookStart:
     jr z, .setDarkMode
     jr .return
 
-.setDarkMode: ; uses Cesium's code
+.setDarkMode:
 	push bc
 	pop af
 	cp a, $40
 	push af
 	pop bc
-	jr z, .return
-    push hl, de, bc
+	jr nz, .return ; only do it when you're returning to homescreen from homescreen (turning on)
+    push hl, de, bc ; uses Cesium's code
 	call ti.boot.InitializeHardware
 	ld hl, $F80818
 	ld (hl), h
