@@ -45,17 +45,13 @@ _installHook:
     inc hl
     inc hl
     call ti.SetHomescreenHook
-    push hl, de, bc ; do this now so it's not odd (Cesium's code)
-	call ti.boot.InitializeHardware
+	call ti.boot.InitializeHardware ; cesium code
 	ld hl, $F80818
 	ld (hl), h
 	ld (hl), $44
 	ld (hl), $21
 	ld l, h
 	ld (hl), $01
-	pop	bc, de, hl
-	xor	a, a
-	inc	a
     ret
 
 appvarName:

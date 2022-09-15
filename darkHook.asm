@@ -44,17 +44,13 @@ _darkHookStart:
 	push af
 	pop bc
 	jr nz, .return ; only do it when you're returning to homescreen from homescreen (turning on)
-    push hl, de, bc ; uses Cesium's code
-	call ti.boot.InitializeHardware
+	call ti.boot.InitializeHardware ; cesium code
 	ld hl, $F80818
 	ld (hl), h
 	ld (hl), $44
 	ld (hl), $21
 	ld l, h
 	ld (hl), $01
-	pop	bc, de, hl
-	xor	a, a
-	inc	a
 
 .return:
 	cp a, a
