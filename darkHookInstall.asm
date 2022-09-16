@@ -31,13 +31,26 @@ include 'include/tiformat.inc'
 format ti archived executable protected program 'DARKINST'
 include 'include/ti84pceg.inc'
 
+_main:
+    bit 4, (iy + 34h) ; check if the hook is installed
+    jr z, _installHook
+    call ti.ClrHomescreenHook ; if the hook is installed, we clear it, otherwise we install it
+    call ti.boot.InitializeHardware
+	ld hl, $F80818
+	ld (hl), h
+	ld (hl), $44
+	ld (hl), $20
+	ld l, h
+	ld (hl), $01
+    ret
+
 _installHook:
     ld hl, appvarName
     call ti.Mov9ToOP1
     call ti.ChkFindSym
     ret c
     call ti.ChkInRam
-    ret z ; maybe I'll actually do more later
+    call z, _notInRAM
     ld hl, 10
     add hl, de
     ld a, c
@@ -54,6 +67,13 @@ _installHook:
 	ld (hl), $21
 	ld l, h
 	ld (hl), $01
+    ret
+
+_notInRAM:
+    call ti.ArchiveVar
+    ld hl, appvarName
+    call ti.Mov9ToOP1
+    call ti.ChkFindSym
     ret
 
 appvarName:
