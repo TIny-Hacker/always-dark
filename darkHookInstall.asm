@@ -35,7 +35,9 @@ _installHook:
     ld hl, appvarName
     call ti.Mov9ToOP1
     call ti.ChkFindSym
+    ret c
     call ti.ChkInRam
+    ret z ; maybe I'll actually do more later
     ld hl, 10
     add hl, de
     ld a, c
