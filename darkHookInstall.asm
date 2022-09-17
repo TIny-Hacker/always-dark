@@ -36,12 +36,12 @@ _main:
     jr z, _installHook
     call ti.ClrHomescreenHook ; if the hook is installed, we clear it, otherwise we install it
     call ti.boot.InitializeHardware
-	ld hl, $F80818
-	ld (hl), h
-	ld (hl), $44
-	ld (hl), $20
-	ld l, h
-	ld (hl), $01
+    ld hl, $F80818
+    ld (hl), h
+    ld (hl), $44
+    ld (hl), $20
+    ld l, h
+    ld (hl), $01
     ret
 
 _installHook:
@@ -60,13 +60,13 @@ _installHook:
     inc hl
     inc hl
     call ti.SetHomescreenHook
-	call ti.boot.InitializeHardware ; cesium code
-	ld hl, $F80818
-	ld (hl), h
-	ld (hl), $44
-	ld (hl), $21
-	ld l, h
-	ld (hl), $01
+    call ti.boot.InitializeHardware ; cesium code
+    ld hl, $F80818
+    ld (hl), h
+    ld (hl), $44
+    ld (hl), $21
+    ld l, h
+    ld (hl), $01
     ret
 
 _notInRAM:
