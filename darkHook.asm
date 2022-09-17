@@ -33,14 +33,11 @@ include 'include/ti84pceg.inc'
 
 _darkHookStart:
     db $83
-    cp a, $03
+    cp a, $03 ; check if the cursor is about to be displayed
     jr z, .setDarkMode
     jr .return
 
 .setDarkMode:
-	ld a, b
-	cp a, $40
-	jr nz, .return ; only do it when you're returning to homescreen from homescreen (turning on)
 	call ti.boot.InitializeHardware ; cesium code
 	ld hl, $F80818
 	ld (hl), h
