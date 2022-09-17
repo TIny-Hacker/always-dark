@@ -33,7 +33,7 @@ include 'include/ti84pceg.inc'
 
 _darkHookStart:
     db $83
-    cp a, $03 ; check if the cursor is about to be displayed
+    cp a, $22 ; check if the cursor is about to be displayed
     jr z, .setDarkMode
     jr .return
 

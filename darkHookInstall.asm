@@ -34,7 +34,7 @@ include 'include/ti84pceg.inc'
 _main:
     bit 4, (iy + 34h) ; check if the hook is installed
     jr z, _installHook
-    call ti.ClrHomescreenHook ; if the hook is installed, we clear it, otherwise we install it
+    call ti.ClrCursorHook ; if the hook is installed, we clear it, otherwise we install it
     call ti.boot.InitializeHardware
     ld hl, $F80818
     ld (hl), h
@@ -59,7 +59,7 @@ _installHook:
     add hl, bc
     inc hl
     inc hl
-    call ti.SetHomescreenHook
+    call ti.SetCursorHook
     call ti.boot.InitializeHardware ; cesium code
     ld hl, $F80818
     ld (hl), h
