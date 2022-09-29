@@ -59,7 +59,7 @@ _installHook:
     add hl, bc
     inc hl
     inc hl
-    call ti.SetHomescreenHook
+    call ti.SetGetCSCHook
     call ti.boot.InitializeHardware ; cesium code
     ld hl, $F80818
     ld (hl), h

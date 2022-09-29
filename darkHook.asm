@@ -31,16 +31,32 @@ include 'include/tiformat.inc'
 format ti archived appvar 'DarkHook'
 include 'include/ti84pceg.inc'
 
+darkModeStatus := ti.pixelShadow2
+
 _darkHookStart:
     db $83
-    cp a, $03
-    jr z, .setDarkMode
-    jr .return
+	push bc
+    cp a, $1a
+    jr nz, .return
+    pop bc
+	push af
+	ld a, (ti.menuCurrent)
+	cp a, 00
+	jr nz, .return
+	ld a, (darkModeStatus)
+	cp a, 00
+	jr z, .return
+	call _setDarkMode
+	ld hl, darkModeStatus
+	ld (hl), 00
 
-.setDarkMode:
-	ld a, b
-	cp a, $40
-	jr nz, .return ; only do it when you're returning to homescreen from homescreen (turning on)
+.return:
+	pop bc
+	or a, 1
+    ld a, b
+    ret
+
+_setDarkMode:
 	call ti.boot.InitializeHardware ; cesium code
 	ld hl, $F80818
 	ld (hl), h
@@ -48,7 +64,4 @@ _darkHookStart:
 	ld (hl), $21
 	ld l, h
 	ld (hl), $01
-
-.return:
-	cp a, a
-    ret
+	ret
