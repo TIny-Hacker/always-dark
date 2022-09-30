@@ -32,9 +32,9 @@ format ti archived executable protected program 'DARKINST'
 include 'include/ti84pceg.inc'
 
 _main:
-    bit 4, (iy + 34h) ; check if the hook is installed
+    bit 0, (iy + 34h) ; check if the hook is installed
     jr z, _installHook
-    call ti.ClrHomescreenHook ; if the hook is installed, we clear it, otherwise we install it
+    call ti.ClrGetCSCHook ; if the hook is installed, we clear it, otherwise we install it
     call ti.boot.InitializeHardware
     ld hl, $F80818
     ld (hl), h
