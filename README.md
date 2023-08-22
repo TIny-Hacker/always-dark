@@ -2,7 +2,7 @@
 
 This program works similar to other dark mode programs for the TI-84 Plus CE, with the exception that it will maintain dark mode even after turning the calculator off and back on again.
 
-![Screenshot](alwaysdark.png)
+![Screenshot](alwaysdark.gif)
 
 ---
 
