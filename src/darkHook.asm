@@ -55,7 +55,24 @@ return:
 darkHookStart:
     db $83
     push bc
-    call ti.boot.InitializeHardware
+    scf
+    ld hl, $2000B
+    ld (ti.mpSpiRange + ti.spiCtrl1), hl
+    ld hl, $1828
+
+.loop:
+    ld (ti.mpSpiRange + ti.spiCtrl0), hl
+    ld hl, $0C
+    ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    ccf
+    ld hl, $40
+    ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    ld hl, $182B
+    jr nc, .loop
+    ld hl, $21
+    ld (ti.mpSpiRange + ti.spiIntCtrl), hl
+    ld hl, $100
+    ld (ti.mpSpiRange + ti.spiCtrl2), hl
     ld hl, $F80818
     ld (hl), h
     ld (hl), $44
