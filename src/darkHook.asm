@@ -2,9 +2,9 @@
 ;
 ; Always Dark Source Code - darkHook.asm
 ; By RoccoLox Programs and TIny_Hacker
-; Copyright 2022 - 2023
+; Copyright 2022 - 2024
 ; License: GPL-3.0
-; Last Built: December 19, 2023
+; Last Built: January 11, 2024
 ;
 ;-----------------------------------------------
 
@@ -54,21 +54,25 @@ return:
 
 darkHookStart:
     db $83
-    push bc
-    scf
+    push af
     ld hl, $2000B
     ld (ti.mpSpiRange + ti.spiCtrl1), hl
     ld hl, $1828
-
-.loop:
-    ld (ti.mpSpiRange + ti.spiCtrl0), hl
+    ld (ti.mpSpiRange), hl
     ld hl, $0C
     ld (ti.mpSpiRange + ti.spiCtrl2), hl
-    ccf
+    nop
     ld hl, $40
     ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    call ti.Delay10ms
     ld hl, $182B
-    jr nc, .loop
+    ld (ti.mpSpiRange), hl
+    ld hl, $0C
+    ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    nop
+    ld hl, $40
+    ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    call ti.Delay10ms
     ld hl, $21
     ld (ti.mpSpiRange + ti.spiIntCtrl), hl
     ld hl, $100
@@ -83,7 +87,6 @@ darkHookStart:
     ld hl, (hookBackUp)
     call ti.ChkHLIs0
     call nz, ti.SetGetCSCHook
-    pop bc
     or a, 1
-    ld a, b
+    pop af
     ret

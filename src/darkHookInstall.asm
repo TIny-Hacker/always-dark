@@ -2,9 +2,9 @@
 ;
 ; Always Dark Source Code - darkHookInstall.asm
 ; By RoccoLox Programs and TIny_Hacker
-; Copyright 2022 - 2023
+; Copyright 2022 - 2024
 ; License: GPL-3.0
-; Last Built: December 19, 2023
+; Last Built: January 11, 2024
 ;
 ;-----------------------------------------------
 
@@ -44,30 +44,30 @@ inArchive:
     ld a, $21
 
 setLCD:
-    scf
+    push af
     ld hl, $2000B
     ld (ti.mpSpiRange + ti.spiCtrl1), hl
     ld hl, $1828
-
-.loop:
-    ld (ti.mpSpiRange + ti.spiCtrl0), hl
+    ld (ti.mpSpiRange), hl
     ld hl, $0C
     ld (ti.mpSpiRange + ti.spiCtrl2), hl
-    ccf
+    nop
     ld hl, $40
     ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    call ti.Delay10ms
     ld hl, $182B
-    jr nc, .loop
+    ld (ti.mpSpiRange), hl
+    ld hl, $0C
+    ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    nop
+    ld hl, $40
+    ld (ti.mpSpiRange + ti.spiCtrl2), hl
+    call ti.Delay10ms
     ld hl, $21
     ld (ti.mpSpiRange + ti.spiIntCtrl), hl
     ld hl, $100
     ld (ti.mpSpiRange + ti.spiCtrl2), hl
-    ld hl, $F80818
-    ld (hl), h
-    ld (hl), $44
-    ld (hl), a
-    ld l, h
-    ld (hl), $01
+    pop af
     ret
 
 appvarNotFound:
