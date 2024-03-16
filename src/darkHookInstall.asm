@@ -4,7 +4,7 @@
 ; By RoccoLox Programs and TIny_Hacker
 ; Copyright 2022 - 2024
 ; License: GPL-3.0
-; Last Built: January 11, 2024
+; Last Built: March 16, 2024
 ;
 ;-----------------------------------------------
 
@@ -68,6 +68,12 @@ setLCD:
     ld hl, $100
     ld (ti.mpSpiRange + ti.spiCtrl2), hl
     pop af
+    ld hl, $F80818
+    ld (hl), h
+    ld (hl), $44
+    ld (hl), a
+    ld l, h
+    ld (hl), $01
     ret
 
 appvarNotFound:
