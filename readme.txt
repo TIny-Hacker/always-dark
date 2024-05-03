@@ -9,7 +9,7 @@ Installation
 --------------------
 
 1. Download the latest release
-   (https://github.com/TIny-Hacker/Spriter/releases/latest) and send
+   (https://github.com/TIny-Hacker/always-dark/releases/latest) and send
    "DARKINST.8xp" and "DarkHook.8xv" to your calculator.
 2. Ensure that "DarkHook.8xv" is in the archive.
 
