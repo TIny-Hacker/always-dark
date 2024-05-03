@@ -1,4 +1,4 @@
-Always-on Dark Mode v1.0
+Always-on Dark Mode v1.1
 --------------------
 
 This program works similar to other dark mode programs for the TI-84 Plus CE,
